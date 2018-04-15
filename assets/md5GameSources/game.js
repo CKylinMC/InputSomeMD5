@@ -12,6 +12,7 @@ game.start = function(){
     this.new();
 };
 game.time = "5m";
+game.dur = game.time;
 game.setTime = function(){
     dialoger.newDialog("s=秒 m=分钟 h=小时 d=天 <br><br><input id='game_SetTimeOut' value='"+game.time+"' placeholder='输入一个时间，如： 1m' required></input>","设置时间","确定",function(){
         dialoger.close();
@@ -96,10 +97,12 @@ game.submit = function(value){
         this.new();
     }else{
         dialoger.newDialog("","错误！");
+		this.update();
     }
     getE("#game_Input").value = "";
 };
 game.reset = function(){
+	this.dur = game.time;
     domFilled("#gameframe",getE("#gamePreparingTemplate").innerHTML);
     this.locked = false;
     this.totalCount = 0;
@@ -112,6 +115,7 @@ game.reset = function(){
 game.update = function(){
     getE("#game_Score").innerHTML = this.scoreCalc();
     getE("#game_hash").innerHTML = this.currentHash;
+    getE("#game_Trys").innerHTML = this.tryTimes;
 
 };
 
