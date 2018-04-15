@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MD5Game</title>
+    <!--Import Dialoger Stylesheets-->
+    <link rel="stylesheet" href="assets/dialog-polyfill.css" />
+    <link rel="stylesheet" href="assets/dialoger_1.0.css" />
+    <!--Import KyMD Stylesheets-->
+    <link rel="stylesheet" href="assets/KyMD.css" />
+    <!--Import Main Stylesheets-->
+    <link rel="stylesheet" href="assets/md5GameSources/game.css" />
+</head>
+<body>
+    <div class="loading">
+        <p>正在加载...</p>
+    </div>
+    <div class="content" onselectstart="return false;">
+        <h1 style="text-align: center">哈希值输入准确度测试(<div id="time_Display" style="display: inline">5m</div>)</h1>
+        <hr>
+        <div id="gameframe"><font color="red" weight="bold">错误</font></div>
+    </div>
+</body>
+<template id="gameTemplate">
+    <div id="game_MsgShow"><div id="game_TimeRemain">0s</div> | <div id="game_Score">0/0</div></div>
+    <div id="game_inputpanel">
+        <div id="game_hash" style="font-size: xx-large;" onmousedown="return false;" onmouseover="return false;" onmouseout="return false;" onmousemove="return false;">0000</div><br>
+        <input id="game_Input" placeholder="Hash..." width="200px" required  style="font-size: xx-large;"></input>
+        <br><button id="game_submit" onclick="game.submit(getE('#game_Input').value)" style="transform: scale(2) translate(5vw,30px);">提交!</button>
+    </div>
+</template>
+<template id="gamePreparingTemplate">
+    <br><br><br><br><br><center><button style="font-size: large;transform: scale(2)" class="primary" onclick="game.start()">开始!</button><br><br>
+    <button style="font-size: large" class="green" onclick="game.setTime()">设置时间!</button></center>
+</template>
+<template id="gameResultTemplate">
+    <br><br>
+    <center id="game_ResultBody">
+        <h3>结果</h3><hr>
+        <ul id="game_ResultUL">
+
+        </ul>
+    </center>
+</template>
+<script src="assets/jquery-2.1.1.min.js"></script>
+<script src="assets/timer.jquery.min.js"></script>
+<script src="assets/md5.min.js"></script>
+<!--Import titleTiper Scripts-->
+<script src="assets/titleTiper.js"></script>
+<!--Import Dialoger Scripts-->
+<script src="assets/dialog-polyfill.js"></script>
+<script src="assets/dialoger_1.0.js"></script>
+<!--Import Helpers Scripts-->
+<script src="assets/tools.js"></script>
+<!--Import Main Scripts-->
+<script src="assets/md5GameSources/game.js"></script>
+
+<script>
+    $(document).ready(function(){
+        dialoger.init();
+
+        domFilled("#gameframe",getE("#gamePreparingTemplate").innerHTML);
+
+        setTimeout(function(){
+            domclass.add(".loading","hide");
+            setTimeout(function(){
+                domclass.add(".loading.hide","replace");
+            },500);
+        },1000);
+    });
+</script>
+</html>
