@@ -26,7 +26,7 @@
     <div id="game_inputpanel">
         <div id="game_hash" style="font-size: xx-large;" onmousedown="return false;" onmouseover="return false;" onmouseout="return false;" onmousemove="return false;">0000</div><br>
         <input id="game_Input" placeholder="Hash..." width="200px" required  style="font-size: xx-large;"></input>
-        <br><button id="game_submit" onclick="game.submit(getE('#game_Input').value)" style="transform: scale(2) translate(5vw,30px);">提交!</button>
+        <br><button id="game_submit" onclick="game.submit(getE('#game_Input').value)" style="margin-top:20px;margin-left:8vw;font-size: xx-large;height: 60px;" class="primary">提交!</button> <button id="game_jump" onclick="game.jump()" style="margin-top:20px;margin-left:8vw;font-size: large;height: 30px;">跳过!</button>
     </div>
 </template>
 <template id="gamePreparingTemplate">

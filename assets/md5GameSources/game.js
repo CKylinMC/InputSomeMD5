@@ -37,20 +37,40 @@ game.timeStop = function(){
 };
 game.end = function(){
     domFilled("#gameframe",getE("#gameResultTemplate").innerHTML);
+	let totalTrys = 0;
+	let totalTimes = 0;
     this.history.forEach(function(key){
         data = JSON.parse(key);
         status = "<font color=red>失败</font>";
-        if(data.status=="Success")
+        if(data.status=="Success"){
             status = "<font color=green>成功</font>";
+		}
+		if(data.trys!=0){
+			totalTrys+= data.trys;
+			totalTimes+= data.times;
+		}
         domAppend(getE("#game_ResultUL"),"<li>第"+data.counter+"个 | "+status+" | 尝试"+data.trys+"次 | 耗时"+data.times+"秒 | HASH: "+data.hash+"</li>");
     });
-    domAppend("#game_ResultBody","<hr><button class='primary' onclick='game.reset()'>重置</button>")
+	trueflagps = Math.round(totalTimes/this.trueCount);
+	flagps = Math.round(totalTimes/totalTrys);
+	domAppend("#game_ResultBody",
+		"<hr>总计尝试"+totalTrys+"次，正确率 "+GetPercent(this.trueCount,totalTrys)+"，平均正确单个耗时 "+trueflagps+" 秒，平均单个耗时 "+flagps+" 秒。"
+	);
+    domAppend("#game_ResultBody","<hr><button class='primary' onclick='game.reset()'>重置</button>");
 };
 game.scoreCalc = function(){
     return this.trueCount+"/"+this.totalCount;
 };
 game.generate = function(){
     return md5(Math.random());
+};
+game.jump = function(){
+	let time = new Date().getTime() - this.currentTime.getTime();
+	time = Math.round(time/1000);
+	this.history.push(JSON.stringify({counter:this.totalCount,status: "Failed",hash: this.currentHash,trys: this.tryTimes, times: time}));
+	dialoger.newDialog("有点可惜吶。。。","已跳过！");
+    getE("#game_Input").value = "";
+	this.new();
 };
 game.new = function(){
     this.currentTime = new Date();
@@ -69,7 +89,7 @@ game.submit = function(value){
     if(value==this.currentHash){
         let time = new Date().getTime() - this.currentTime.getTime();
         time = Math.round(time/1000);
-        this.history.push(JSON.stringify({counter:this.totalCount,status: "Success",hash: game.currentHash,trys: this.tryTimes, times: time}));
+        this.history.push(JSON.stringify({counter:this.totalCount,status: "Success",hash: this.currentHash,trys: this.tryTimes, times: time}));
         this.trueCount++;
         dialoger.newDialog("","正确！");
 
@@ -133,3 +153,11 @@ function domFilled(parent,child){
     }
     return parent;
 }
+function GetPercent(num, total) { 
+	num = parseFloat(num); 
+	total = parseFloat(total); 
+	if (isNaN(num) || isNaN(total)) { 
+		return "-"; 
+	} 
+	return total <= 0 ? "0%" : (Math.round(num / total * 10000) / 100.00 + "%"); 
+} 
