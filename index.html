@@ -22,18 +22,27 @@
     </div>
 </body>
 <template id="gameTemplate">
+<div id="game_anim" class="anim_before">
     <div id="game_MsgShow">已用时间：<div id="game_TimeRemain">0s</div> | 正确情况：<div id="game_Score">0/0</div> | 当前尝试次数：<div id="game_Trys">0</div></div>
     <div id="game_inputpanel">
         <div id="game_hash" style="font-size: xx-large;" onmousedown="return false;" onmouseover="return false;" onmouseout="return false;" onmousemove="return false;">0000</div><br>
-        <input id="game_Input" placeholder="Hash..." width="200px" required  style="font-size: xx-large;"></input>
-        <br><button id="game_submit" onclick="game.submit(getE('#game_Input').value)" style="margin-top:20px;margin-left:8vw;font-size: xx-large;height: 60px;" class="primary">提交!</button> <button id="game_jump" onclick="game.jump()" style="margin-top:20px;margin-left:8vw;font-size: large;height: 30px;">跳过!</button>
+        <input id="game_Input" placeholder="Hash..." width="200px" required  style="font-size: xx-large;text-align: center;" maxlength="32"></input>
+        <br><div style="margin 0 auto;margin-top:20px;"><button id="game_cancel" onclick="game.cancel()" style="font-size: large;height: 30px;display:inline-block" class="error">重置测试!</button> - <button id="game_submit" onclick="game.submit(getE('#game_Input').value)" style="font-size: xx-large;height: 60px;display:inline-block" class="primary">提交!</button> - <button id="game_jump" onclick="game.jump()" style="font-size: large;height: 30px;display:inline-block">跳过当前!</button></div>
+		<!--
+		<button id="game_submit" onclick="game.submit(getE('#game_Input').value)" style="margin:0 auto;margin-top:20px;/*margin-left:8vw;*/font-size: xx-large;height: 60px;" class="primary">提交!</button> <button id="game_jump" onclick="game.jump()" style="margin-top:20px;/*margin-left:8vw;*/font-size: large;height: 30px;display:inline-block">跳过!</button> <button id="game_cancel" onclick="game.cancel()" style="margin-top:20px;/*margin-left:8vw;*/font-size: large;height: 30px;display:inline-block" class="error">取消!</button>
+		-->
     </div>
+</div>
 </template>
 <template id="gamePreparingTemplate">
-    <br><br><br><br><br><center><button style="font-size: large;transform: scale(2)" class="primary" onclick="game.start()">开始!</button><br><br>
-    <button style="font-size: large" class="green" onclick="game.setTime()">设置时间!</button></center>
+<div id="game_anim" class="anim_before">
+    <br><h3>一定时间之内，你能输入多少个随机哈希值？</h3><br><br><br><br><center><button style="font-size: large;transform: scale(2)" class="primary anim_start" onclick="game.start()">开始!</button><br><br>
+    <button style="font-size: large" class="green" onclick="game.setTime()">设置时间!</button><br><br>
+    <button onclick="game.info()">关于</button></center>
+</div>
 </template>
 <template id="gameResultTemplate">
+<div id="game_anim" class="anim_before">
     <br><br>
     <center id="game_ResultBody">
         <h3>结果</h3><hr>
@@ -41,6 +50,7 @@
 
         </ul>
     </center>
+</div>
 </template>
 <script src="assets/jquery-2.1.1.min.js"></script>
 <script src="assets/timer.jquery.min.js"></script>
@@ -65,6 +75,7 @@
             domclass.add(".loading","hide");
             setTimeout(function(){
                 domclass.add(".loading.hide","replace");
+				game.anim();
             },500);
         },1000);
     });

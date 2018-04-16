@@ -5,7 +5,7 @@ body,html{
     width: 100vw;
     height: 100vh;
     /*overflow: hidden;*/
-    transition: all .3s ease-out;
+    transition: all .3s cubic-bezier(0, 0, 0.26, 1.01);
     text-align: center;
 }
 .loading {
@@ -47,6 +47,15 @@ body,html{
     display: inline-block;
     font-size: x-large;
 }
+.anim_before {
+	transition: .2s cubic-bezier(0, 0, 0.26, 1.01);
+	opacity: 0;
+	margin-top: 30px;
+}
+.anim_start {
+    -webkit-animation: zoom 1s ease-in-out 0s infinite;
+    animation: zoom 1s ease-in-out 0s infinite;
+}
 
 
 
@@ -74,5 +83,24 @@ body,html{
     25%, 75% {
         opacity: 0;
         filter: alpha(opacity=0);
+    }
+}
+@-webkit-keyframes zoom {
+    0%, 100% {
+		transform: scale(2);
+    }
+
+    50% {
+		transform: scale(2.2);
+    }
+}
+
+@keyframes zoom {
+    0%, 100% {
+		transform: scale(2);
+    }
+
+    50% {
+		transform: scale(2.2);
     }
 }

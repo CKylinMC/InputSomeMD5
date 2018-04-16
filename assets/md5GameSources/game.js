@@ -1,6 +1,11 @@
 let game={};
+game.info = function(){
+	let content = "<div style='text-align:left'>相关规则：<br><ul><li>测试期间不能通过复制哈希值等方式作弊</li><li>为了模拟某些比赛的特殊环境，不能使用回车提交</li><li>哈希值为32位数字字母混合随机乱码，其中的英文字母全小写</li><li>跳过的哈希值记为输入失败，不可逆</li></ul><br>此页面由 <b>CKylinMC</b> 制作，初衷是模拟网络空间安全大赛二阶段flag提交，练习选手的输入速度之用。</div>";
+	dialoger.newDialog(content,"哈希值测试相关信息");
+};
 game.start = function(){
     domFilled("#gameframe",getE("#gameTemplate").innerHTML);
+	game.anim();
     $('#game_TimeRemain').timer({
         duration: game.time,
         callback: function() {
@@ -11,6 +16,11 @@ game.start = function(){
     window.getE("#game_Input").readOnly = "";
     this.new();
 };
+game.anim = function(){
+	setTimeout(function(){
+		domclass.remove("#game_anim","anim_before");
+	},50);
+};
 game.time = "5m";
 game.dur = game.time;
 game.setTime = function(){
@@ -20,7 +30,7 @@ game.setTime = function(){
         setTimeout(function(){
             dialoger.newDialog("时间已被设置为 "+game.time);
             getE("#time_Display").innerHTML = game.time;
-        },500);
+        },300);
     })
 };
 game.locked = false;
@@ -38,6 +48,7 @@ game.timeStop = function(){
 };
 game.end = function(){
     domFilled("#gameframe",getE("#gameResultTemplate").innerHTML);
+	this.anim();
 	let totalTrys = 0;
 	let totalTimes = 0;
     this.history.forEach(function(key){
@@ -58,6 +69,11 @@ game.end = function(){
 		"<hr>总计尝试"+totalTrys+"次，正确率 "+GetPercent(this.trueCount,totalTrys)+"，平均正确单个耗时 "+trueflagps+" 秒，平均单个耗时 "+flagps+" 秒。"
 	);
     domAppend("#game_ResultBody","<hr><button class='primary' onclick='game.reset()'>重置</button>");
+};
+game.cancel = function(){
+	$('#game_TimeRemain').timer("remove");
+	this.reset();
+	dialoger.newDialog("已取消本次计时。","打断计时");
 };
 game.scoreCalc = function(){
     return this.trueCount+"/"+this.totalCount;
@@ -104,6 +120,7 @@ game.submit = function(value){
 game.reset = function(){
 	this.dur = game.time;
     domFilled("#gameframe",getE("#gamePreparingTemplate").innerHTML);
+	this.anim();
     this.locked = false;
     this.totalCount = 0;
     this.trueCount = 0;
