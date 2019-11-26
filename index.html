@@ -5,7 +5,7 @@
     <title>MD5Game</title>
     <!--Import Dialoger Stylesheets-->
     <link rel="stylesheet" href="assets/dialog-polyfill.css" />
-    <link rel="stylesheet" href="assets/dialoger_1.0.css" />
+    <link rel="stylesheet" href="assets/dialoger_1.1.css" />
     <!--Import KyMD Stylesheets-->
     <link rel="stylesheet" href="assets/KyMD.css" />
     <!--Import Main Stylesheets-->
@@ -27,7 +27,7 @@
     <div id="game_inputpanel">
         <div id="game_hash" style="font-size: xx-large;" onmousedown="return false;" onmouseover="return false;" onmouseout="return false;" onmousemove="return false;">0000</div><br>
         <input id="game_Input" placeholder="Hash..." width="200px" required  style="font-size: xx-large;text-align: center;" maxlength="32"></input>
-        <br><div style="margin 0 auto;margin-top:20px;"><button id="game_cancel" onclick="game.cancel()" style="font-size: large;height: 30px;display:inline-block" class="error">重置测试!</button> - <button id="game_submit" onclick="game.submit(getE('#game_Input').value)" style="font-size: xx-large;height: 60px;display:inline-block" class="primary">提交!</button> - <button id="game_jump" onclick="game.jump()" style="font-size: large;height: 30px;display:inline-block">跳过当前!</button></div>
+        <br><div style="margin: 0 auto;margin-top:20px;"><button id="game_cancel" onclick="game.cancel()" style="font-size: large;height: 30px;display:inline-block" class="error">重置测试!</button> - <button id="game_submit" onclick="game.submit(getE('#game_Input').value)" style="font-size: xx-large;height: 60px;display:inline-block" class="primary">提交!</button> - <button id="game_jump" onclick="game.jump()" style="font-size: large;height: 30px;display:inline-block">跳过当前!</button></div>
 		<!--
 		<button id="game_submit" onclick="game.submit(getE('#game_Input').value)" style="margin:0 auto;margin-top:20px;/*margin-left:8vw;*/font-size: xx-large;height: 60px;" class="primary">提交!</button> <button id="game_jump" onclick="game.jump()" style="margin-top:20px;/*margin-left:8vw;*/font-size: large;height: 30px;display:inline-block">跳过!</button> <button id="game_cancel" onclick="game.cancel()" style="margin-top:20px;/*margin-left:8vw;*/font-size: large;height: 30px;display:inline-block" class="error">取消!</button>
 		-->
@@ -59,7 +59,7 @@
 <script src="assets/titleTiper.js"></script>
 <!--Import Dialoger Scripts-->
 <script src="assets/dialog-polyfill.js"></script>
-<script src="assets/dialoger_1.0.js"></script>
+<script src="assets/dialoger_1.1.js"></script>
 <!--Import Helpers Scripts-->
 <script src="assets/tools.js"></script>
 <!--Import Main Scripts-->
@@ -67,7 +67,7 @@
 
 <script>
     $(document).ready(function(){
-        dialoger.init();
+        dialoger.init(1);
 
         domFilled("#gameframe",getE("#gamePreparingTemplate").innerHTML);
 
